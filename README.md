@@ -1,4 +1,4 @@
-# @umon752/web-countup
+# web-countup
 
 一個基於 Web Component 的計數器動畫元件，支援隨機模式與順序模式，提供流暢的數字跑動動畫效果。
 
@@ -24,7 +24,10 @@ yarn add @umon752/web-countup
 <script type="module" src="https://unpkg.com/@umon752/web-countup"></script>
 
 <!-- jsDelivr -->
-<script type="module" src="https://cdn.jsdelivr.net/npm/@umon752/web-countup"></script>
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@umon752/web-countup"
+></script>
 ```
 
 ## 使用方式
@@ -49,19 +52,19 @@ yarn add @umon752/web-countup
 <web-countup duration="2000">123,567.98</web-countup>
 
 <!-- 純數字也可以啟用隨機模式 -->
-<web-countup 
-  duration="2000" 
-  random-mode-enable="true">1000</web-countup>
+<web-countup duration="2000" random-mode-enable="true">1000</web-countup>
 ```
 
 ### 順序模式 + 千分位
 
 ```html
-<web-countup 
+<web-countup
   duration="2000"
   start-num="0"
   random-mode-enable="false"
-  random-mode-thousand-comma="true">1000</web-countup>
+  random-mode-thousand-comma="true"
+  >1000</web-countup
+>
 ```
 
 ### 監聽事件
@@ -94,13 +97,13 @@ yarn add @umon752/web-countup
 
 ### 屬性 (Attributes)
 
-| 屬性名稱 | 類型 | 預設值 | 說明 |
-|---------|------|--------|------|
-| `duration` | number | `1000` | 計數動畫的持續時間（毫秒） |
-| `start-time` | number | `0` | 開始計數之前的延遲時間（毫秒） |
-| `delay` | number | `0` | 每次計數更新之間的延遲時間（毫秒） |
-| `start-num` | number | `0` | 起始計數的數字 |
-| `random-mode-enable` | boolean | `true` | 是否啟用隨機模式 |
+| 屬性名稱                     | 類型    | 預設值  | 說明                                 |
+| ---------------------------- | ------- | ------- | ------------------------------------ |
+| `duration`                   | number  | `1000`  | 計數動畫的持續時間（毫秒）           |
+| `start-time`                 | number  | `0`     | 開始計數之前的延遲時間（毫秒）       |
+| `delay`                      | number  | `0`     | 每次計數更新之間的延遲時間（毫秒）   |
+| `start-num`                  | number  | `0`     | 起始計數的數字                       |
+| `random-mode-enable`         | boolean | `true`  | 是否啟用隨機模式                     |
 | `random-mode-thousand-comma` | boolean | `false` | 是否啟用千分位符號（僅順序模式有效） |
 
 ### 方法 (Methods)
@@ -156,14 +159,14 @@ interface IWebCountupEventDetail {
 }
 ```
 
-| 事件名稱 | 說明 | 觸發時機 |
-|---------|------|---------|
-| `web-countup:run` | 執行計數 | 呼叫 `run()` 方法時 |
-| `web-countup:stop` | 停止計數 | 呼叫 `stop()` 方法時 |
-| `web-countup:start` | 開始/繼續計數 | 呼叫 `start()` 方法時 |
-| `web-countup:reset` | 重置計數 | 呼叫 `reset()` 方法時 |
-| `web-countup:restart` | 重新啟動 | 呼叫 `restart()` 方法時 |
-| `web-countup:done` | 計數完成 | 計數動畫完成時 |
+| 事件名稱              | 說明          | 觸發時機                |
+| --------------------- | ------------- | ----------------------- |
+| `web-countup:run`     | 執行計數      | 呼叫 `run()` 方法時     |
+| `web-countup:stop`    | 停止計數      | 呼叫 `stop()` 方法時    |
+| `web-countup:start`   | 開始/繼續計數 | 呼叫 `start()` 方法時   |
+| `web-countup:reset`   | 重置計數      | 呼叫 `reset()` 方法時   |
+| `web-countup:restart` | 重新啟動      | 呼叫 `restart()` 方法時 |
+| `web-countup:done`    | 計數完成      | 計數動畫完成時          |
 
 ## TypeScript 支援
 
@@ -176,9 +179,12 @@ const counter = document.createElement('web-countup') as WebCountup;
 counter.setAttribute('duration', '2000');
 counter.textContent = '12345';
 
-counter.addEventListener('web-countup:done', (e: CustomEvent<IWebCountupEventDetail>) => {
-  console.log('完成:', e.detail.value);
-});
+counter.addEventListener(
+  'web-countup:done',
+  (e: CustomEvent<IWebCountupEventDetail>) => {
+    console.log('完成:', e.detail.value);
+  },
+);
 
 counter.run();
 ```
@@ -193,9 +199,3 @@ counter.run();
 ## License
 
 MIT
-
----
-
-**開發者**: YI CHIEH <umon752@gmail.com>
-
-**倉庫**: [https://github.com/umon752/web-countup](https://github.com/umon752/web-countup)
