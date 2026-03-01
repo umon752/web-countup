@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Countup Component</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      web-countup {
+        display: inline-block;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin: 10px 0;
+      }
+      
+      .demo-section {
+        margin: 30px 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      
+      .demo-section h2 {
+        margin-top: 0;
+        color: #666;
+      }
+      
+      .controls {
+        margin-top: 20px;
+      }
+      
+      button {
+        padding: 8px 16px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      
+      button:hover {
+        background-color: #0056b3;
+      }
+      
+      .log {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      
+      .log-item {
+        margin: 2px 0;
+        color: #666;
+      }
+    </style>
+</head>
+<body>
+  <h1>Web Countup Component 示範</h1>
+  
+  <div class="demo-section">
+    <h2>範例 1: 非純數字 (帶符號、文字)</h2>
+    <web-countup 
+      countup-duration="2000" 
+      countup-start-time="500" 
+      countup-delay="100" 
+      countup-start-num="0">123,567.98</web-countup>
+  </div>
+
+  <div class="demo-section">
+    <h2>範例 2: 純數字</h2>
+    <web-countup 
+      countup-duration="2000" 
+      countup-start-time="500" 
+      countup-delay="100" 
+      countup-start-num="0">123</web-countup>
+  </div>
+
+  <div class="demo-section">
+    <h2>範例 3: 純數字 + 千分位</h2>
+    <web-countup 
+      countup-duration="2000" 
+      countup-start-time="500" 
+      countup-delay="100" 
+      countup-start-num="50"
+      countup-random-mode="false"
+      countup-thousand-comma="true">1000</web-countup>
+  </div>
+
+  <div class="controls">
+    <button type="button" class="js-run">Run</button>
+    <button type="button" class="js-stop">Stop</button>
+    <button type="button" class="js-start">Start</button>
+    <button type="button" class="js-reset">Reset</button>
+    <button type="button" class="js-restart">Restart</button>
+  </div>
+
+  <div class="log">
+    <div class="log-title"><strong>事件日誌:</strong></div>
+    <div id="log-content"></div>
+  </div>
+
+  <script type="module">
+    //----------------------------
+    // Import Web Component
+    //----------------------------
+    import { WebCountup } from "./dist/index.js";
+
+    //----------------------------
+    // 取得所有 countup 元素
+    //----------------------------
+    const counters = document.querySelectorAll('web-countup');
+
+    //----------------------------
+    // 事件監聽器 - 監聽所有事件
+    //----------------------------
+    const logContent = document.getElementById('log-content');
+    
+    function addLog(message) {
+      const logItem = document.createElement('div');
+      logItem.className = 'log-item';
+      logItem.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logContent.insertBefore(logItem, logContent.firstChild);
+      
+      // 限制日誌數量
+      while (logContent.children.length > 50) {
+        logContent.removeChild(logContent.lastChild);
+      }
+    }
+
+    counters.forEach((counter) => {
+      counter.addEventListener('web-countup:run', (e) => {
+        addLog(`運行: ${e.detail.value}`);
+      });
+
+      counter.addEventListener('web-countup:stop', (e) => {
+        addLog(`停止: ${e.detail.value}`);
+      });
+
+      counter.addEventListener('web-countup:start', (e) => {
+        addLog(`開始: ${e.detail.value}`);
+      });
+
+      counter.addEventListener('web-countup:reset', (e) => {
+        addLog(`重置: ${e.detail.value}`);
+      });
+
+      counter.addEventListener('web-countup:restart', (e) => {
+        addLog(`重新啟動: ${e.detail.value}`);
+      });
+
+      counter.addEventListener('web-countup:done', (e) => {
+        addLog(`✓ 完成: ${e.detail.value}`);
+      });
+    });
+
+    //----------------------------
+    // 按鈕控制
+    //----------------------------
+    const runBtn = document.querySelector('.js-run');
+    const stopBtn = document.querySelector('.js-stop');
+    const startBtn = document.querySelector('.js-start');
+    const resetBtn = document.querySelector('.js-reset');
+    const restartBtn = document.querySelector('.js-restart');
+
+    runBtn.addEventListener('click', () => {
+      console.log('run click');
+      
+      counters.forEach((counter) => {
+        counter.run();
+      });
+    });
+
+    stopBtn.addEventListener('click', () => {
+      counters.forEach((counter) => {
+        counter.stop();
+      });
+    });
+
+    startBtn.addEventListener('click', () => {
+      counters.forEach((counter) => {
+        counter.start();
+      });
+    });
+
+    resetBtn.addEventListener('click', () => {
+      counters.forEach((counter) => {
+        counter.reset();
+      });
+    });
+
+    restartBtn.addEventListener('click', () => {
+      counters.forEach((counter) => {
+        counter.restart();
+      });
+    });
+  </script>
+</body>
+</html>

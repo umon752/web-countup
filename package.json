@@ -1,0 +1,42 @@
+{
+  "name": "@umon752/web-countup",
+  "version": "1.0.0",
+  "description": "一個基於 Web Component 的計數器動畫元件，支援隨機模式與順序模式，提供流暢的數字跑動動畫效果",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "web-component",
+    "countup",
+    "counter",
+    "animation",
+    "custom-element",
+    "typescript",
+    "number-animation"
+  ],
+  "author": "YI CHIEH <umon752@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umon752/web-countup"
+  },
+  "bugs": {
+    "url": "https://github.com/umon752/web-countup/issues"
+  },
+  "homepage": "https://github.com/umon752/web-countup#readme",
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

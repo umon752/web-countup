@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>counter</title>
+</head>
+<body>
+  <div class="js-counter">123,567.98</div>
+  <div class="js-counter">123</div>
+  <div class="js-org-counter">1000</div>
+
+  <button type="button" class="js-run">run</button>
+  <button type="button" class="js-stop">stop</button>
+  <button type="button" class="js-start">start</button>
+  <button type="button" class="js-reset">reset</button>
+  <button type="button" class="js-restart">restart</button>
+
+  <script type="module">
+    //----------------------------
+    // new instance
+    //----------------------------
+    import { Counter } from "./js/counter.js";
+
+    // 非純數字 (帶符號、文字)
+    const counterInstance = [];
+    const counterEls = document.querySelectorAll('.js-counter');
+
+    counterEls.forEach((el) => {
+      const counter = new Counter(el, {
+        duration: 2000,
+        startTime: 500,
+        delay: 100,
+        startNum: 50,
+        // randomMode: {
+        //   enable: true,
+        //   thousandComma: false,
+        // },
+        done() {
+          console.log('counter done');
+        }
+      });
+      counterInstance.push(counter);
+    })
+
+    // 純數字
+    const orgCounterInstance = [];
+    const orgCounterEls = document.querySelectorAll('.js-org-counter');
+
+    orgCounterEls.forEach((el) => {
+      const counter = new Counter(el, {
+        duration: 2000,
+        startTime: 500,
+        delay: 100,
+        startNum: 50,
+        randomMode: {
+          enable: false,
+          thousandComma: true,
+        },
+        done() {
+          console.log('orgCounter done');
+        }
+      });
+      orgCounterInstance.push(counter);
+    })
+    
+
+    //----------------------------
+    // method
+    //----------------------------
+    const runBtn = document.querySelector('.js-run');
+    const stopBtn = document.querySelector('.js-stop');
+    const startBtn = document.querySelector('.js-start');
+    const resetBtn = document.querySelector('.js-reset');
+    const restartBtn = document.querySelector('.js-restart');
+
+    runBtn.addEventListener('click', (e) => {
+      counterInstance.forEach((instance) => {
+        instance.run();
+      })
+      orgCounterInstance.forEach((instance) => {
+        instance.run();
+      })
+    })
+
+    stopBtn.addEventListener('click', (e) => {
+      counterInstance.forEach((instance) => {
+        instance.stop();
+      })
+      orgCounterInstance.forEach((instance) => {
+        instance.stop();
+      })
+    })
+
+    startBtn.addEventListener('click', (e) => {
+      counterInstance.forEach((instance) => {
+        instance.start();
+      })
+      orgCounterInstance.forEach((instance) => {
+        instance.start();
+      })
+    })
+
+    resetBtn.addEventListener('click', (e) => {
+      counterInstance.forEach((instance) => {
+        instance.reset();
+      })
+      orgCounterInstance.forEach((instance) => {
+        instance.reset();
+      })
+    })
+
+    restartBtn.addEventListener('click', (e) => {
+      counterInstance.forEach((instance) => {
+        instance.restart();
+      })
+      orgCounterInstance.forEach((instance) => {
+        instance.restart();
+      })
+    })
+  </script>
+</body>
+</html>
